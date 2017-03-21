@@ -10,4 +10,7 @@
 	<ItemGroup Condition="'$(TargetFramework)'=='netstandard1.6'">
 		<PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="1.1.2" />
 	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+	</ItemGroup>
 </Project>
