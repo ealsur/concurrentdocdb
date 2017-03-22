@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentDb.Concurrency", "src\DocumentDb.Concurrency\DocumentDb.Concurrency.csproj", "{8CFD6387-6B84-4C39-93BD-BF0FE4EFF4EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentDb.Concurrenty.Tests", "test\DocumentDb.Concurrenty.Tests\DocumentDb.Concurrenty.Tests.csproj", "{063D0F9B-B4E9-49A6-933C-32D00D54F1D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentDb.Concurrency.Tests", "test\DocumentDb.Concurrency.Tests\DocumentDb.Concurrency.Tests.csproj", "{063D0F9B-B4E9-49A6-933C-32D00D54F1D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
