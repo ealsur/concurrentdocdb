@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents;
 using System.Threading.Tasks;
 using System.Net;
 using System.Reflection;
-using System.Linq;
 
 namespace DocumentDb.Concurrency
 {
-    public static class DocumentClientExtensions
+	/// <summary>
+	/// Extensions to provide Concurrency-aware Replace operations
+	/// </summary>
+	public static class DocumentClientExtensions
     {
 		public static async Task<ResourceResponse<Document>> ReplaceConcurrentDocumentAsync(this DocumentClient client, Document document, RequestOptions options = null)
 		{
@@ -25,7 +25,7 @@ namespace DocumentDb.Concurrency
 				if (dce.StatusCode == HttpStatusCode.PreconditionFailed)
 				{
 					//Handle concurrency error
-					return await Task.FromException<ResourceResponse<Document>>(dce);
+					return await Task.FromException<ResourceResponse<Document>>(new ConcurrencyException(refOptions.AccessCondition.Condition, dce));
 				}
 				throw;
 			}
@@ -48,7 +48,7 @@ namespace DocumentDb.Concurrency
 				if (dce.StatusCode == HttpStatusCode.PreconditionFailed)
 				{
 					//Handle concurrency error
-					return await Task.FromException<ResourceResponse<Document>>(dce);
+					return await Task.FromException<ResourceResponse<Document>>(new ConcurrencyException(refOptions.AccessCondition.Condition, dce));
 				}
 				throw;
 			}
@@ -58,5 +58,7 @@ namespace DocumentDb.Concurrency
 		{
 			return await ReplaceConcurrentDocumentAsync(client, documentLink.ToString(), document, options);
 		}
+		
+
 	}
 }
