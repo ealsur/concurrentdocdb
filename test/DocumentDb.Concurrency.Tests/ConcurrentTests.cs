@@ -12,6 +12,9 @@ using Xunit;
 
 namespace DocumentDb.Concurrenty.Tests
 {
+	/// <summary>
+	/// This test is meant to run on the DocumentDb emulator
+	/// </summary>
     public class ConcurrentTests
     {
 		private DocumentClient _dbClient;
@@ -51,23 +54,34 @@ namespace DocumentDb.Concurrenty.Tests
 			return _dbClient.CreateDocumentQuery<T>(_collectionUri, feedOptions);
 		}
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		[Fact]
 		public async Task TheOneAndOnly()
 		{
+			//Creates a random document
 			var theId = Guid.NewGuid().ToString();
 			var aDoc = new DummyDocument();
 			aDoc.Id = theId;
 			await _dbClient.CreateDocumentAsync(_collectionUri, aDoc);
 			
+			//Obtains the created document
 			Document theDoc = await _dbClient.ReadDocumentAsync(UriFactory.CreateDocumentUri("test", "concurrencyTest", theId));
 			Assert.Equal(theDoc.Id, theId);
 
+			//Modifies document altering ETag internally
 			theDoc.SetPropertyValue("Property1", "modified");
-
 			var result = await _dbClient.ReplaceConcurrentDocumentAsync(UriFactory.CreateDocumentUri("test", "concurrencyTest", theDoc.Id),theDoc);
 			Assert.Equal(result.StatusCode, HttpStatusCode.OK);
+
+			//Modifies the same document generating a concurrency exception and handling it
 			theDoc.SetPropertyValue("Property1", "modified again");
-			var result2 = await _dbClient.ReplaceConcurrentDocumentAsync(UriFactory.CreateDocumentUri("test", "concurrencyTest", theDoc.Id), theDoc);
+			var result2 = await _dbClient.ReplaceConcurrentDocumentAsync(UriFactory.CreateDocumentUri("test", "concurrencyTest", theDoc.Id), theDoc).OnConcurrencyException((exception)=>
+			{
+				Console.WriteLine($"I got it!! {exception.Message}");
+			});
 		}
 	}
 }
