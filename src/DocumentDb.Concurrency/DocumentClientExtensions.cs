@@ -56,9 +56,7 @@ namespace DocumentDb.Concurrency
 
 		public static async Task<ResourceResponse<Document>> ReplaceConcurrentDocumentAsync(this DocumentClient client, Uri documentLink, object document, RequestOptions options = null)
 		{
-			return await ReplaceConcurrentDocumentAsync(client, documentLink.ToString(), document, options);
+			return await ReplaceConcurrentDocumentAsync(client, documentLink.ToString(), document, options).ConfigureAwait(false);
 		}
-		
-
 	}
 }
