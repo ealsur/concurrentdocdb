@@ -18,7 +18,7 @@ namespace DocumentDb.Concurrency
 			refOptions.AccessCondition = new AccessCondition() { Type = AccessConditionType.IfMatch, Condition = document.ETag };
 			try
 			{
-				return await client.ReplaceDocumentAsync(document, refOptions);
+				return await client.ReplaceDocumentAsync(document, refOptions).ConfigureAwait(false);
 			}
 			catch (DocumentClientException dce)
 			{
@@ -41,7 +41,7 @@ namespace DocumentDb.Concurrency
 			}
 			try
 			{
-				return await client.ReplaceDocumentAsync(documentLink, document, refOptions);
+				return await client.ReplaceDocumentAsync(documentLink, document, refOptions).ConfigureAwait(false);
 			}
 			catch (DocumentClientException dce)
 			{

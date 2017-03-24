@@ -25,7 +25,7 @@ namespace DocumentDb.Concurrency
 
 			try
 			{
-				return await task;
+				return await task.ConfigureAwait(false);
 			}
 			catch (ConcurrencyException ex)
 			{
