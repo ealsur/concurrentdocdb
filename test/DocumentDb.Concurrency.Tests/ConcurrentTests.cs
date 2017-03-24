@@ -100,6 +100,12 @@ namespace DocumentDb.Concurrenty.Tests
 			{
 				Console.WriteLine($"I got it!! {exception.Message}");
 			});
+			//Now with Wait (shouldnt be using it but Im testing for deadlocks)
+			var result3 = _dbClient.ReplaceConcurrentDocumentAsync(GetDocumentLink(theDoc.Id), theDoc).OnConcurrencyException((exception) =>
+			{
+				Console.WriteLine($"I got it!! {exception.Message}");
+			});
+			result3.Wait();
 		}
 	}
 }
