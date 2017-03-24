@@ -108,6 +108,13 @@ namespace DocumentDb.Concurrency.Web.Tests.Controllers
 				_telemetry.TrackEvent("Concurrent handler working!");
 				Console.WriteLine($"I got it!! {exception.Message}");
 			});
+			//Now with Wait (shouldnt be using it but Im testing for deadlocks)
+			var result3 = _dbClient.ReplaceConcurrentDocumentAsync(GetDocumentLink(theDoc.Id), theDoc).OnConcurrencyException((exception) =>
+			{
+				_telemetry.TrackEvent("Concurrent handler working!");
+				Console.WriteLine($"I got it!! {exception.Message}");
+			});
+			result3.Wait();
 			return Ok();
         }
     }

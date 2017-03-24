@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Content Include="wwwroot\web.config" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
@@ -20,7 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\DocumentDb.Concurrency\DocumentDb.Concurrency.csproj" />
     <ProjectReference Include="..\DocumentDb.Concurrency.Tests.Common\DocumentDb.Concurrency.Tests.Common.csproj" />
-    <ProjectReference Include="..\src\DocumentDb.Concurrency\DocumentDb.Concurrency.csproj" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
