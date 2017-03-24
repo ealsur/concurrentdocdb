@@ -1,12 +1,11 @@
 ﻿using DocumentDb.Concurrency;
+using DocumentDb.Concurrency.Tests.Common;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
-using Microsoft.Azure.Documents.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -15,7 +14,7 @@ namespace DocumentDb.Concurrenty.Tests
 	/// <summary>
 	/// This test is meant to run on the DocumentDb emulator
 	/// </summary>
-    public class ConcurrentTests
+	public class ConcurrentTests
     {
 		private DocumentClient _dbClient;
 		private readonly Uri _collectionUri;

@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\DocumentDb.Concurrency\DocumentDb.Concurrency.csproj" />
+    <ProjectReference Include="..\DocumentDb.Concurrency.Tests.Common\DocumentDb.Concurrency.Tests.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
