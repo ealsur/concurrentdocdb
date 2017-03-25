@@ -1,9 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFrameworks>netstandard1.6;net451</TargetFrameworks>
+    <Authors>ealsur</Authors>
+    <Company />
+    <Product>Azure DocumentDb concurrency extensions</Product>
+    <Copyright>2017</Copyright>
+    <PackageLicenseUrl>https://github.com/ealsur/concurrentdocdb/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/ealsur/concurrentdocdb</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ealsur/concurrentdocdb</RepositoryUrl>
+    <PackageTags />
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.6'">
 		<PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="1.1.2" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)'=='net451'">
+		<PackageReference Include="Microsoft.Azure.DocumentDB" Version="1.13.0" />
 	</ItemGroup>
 </Project>

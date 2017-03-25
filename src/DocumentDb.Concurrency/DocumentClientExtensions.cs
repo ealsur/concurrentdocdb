@@ -25,7 +25,11 @@ namespace DocumentDb.Concurrency
 				if (dce.StatusCode == HttpStatusCode.PreconditionFailed)
 				{
 					//Handle concurrency error
+#if NETSTANDARD1_6
 					return await Task.FromException<ResourceResponse<Document>>(new ConcurrencyException(refOptions.AccessCondition.Condition, dce));
+#else
+					return await FromExAsync<ResourceResponse<Document>>(new ConcurrencyException(refOptions.AccessCondition.Condition, dce));
+#endif
 				}
 				throw;
 			}
@@ -48,7 +52,11 @@ namespace DocumentDb.Concurrency
 				if (dce.StatusCode == HttpStatusCode.PreconditionFailed)
 				{
 					//Handle concurrency error
+#if NETSTANDARD1_6
 					return await Task.FromException<ResourceResponse<Document>>(new ConcurrencyException(refOptions.AccessCondition.Condition, dce));
+#else
+					return await FromExAsync<ResourceResponse<Document>>(new ConcurrencyException(refOptions.AccessCondition.Condition, dce));
+#endif
 				}
 				throw;
 			}
@@ -57,6 +65,19 @@ namespace DocumentDb.Concurrency
 		public static async Task<ResourceResponse<Document>> ReplaceConcurrentDocumentAsync(this DocumentClient client, Uri documentLink, object document, RequestOptions options = null)
 		{
 			return await ReplaceConcurrentDocumentAsync(client, documentLink.ToString(), document, options).ConfigureAwait(false);
+		}
+
+		/// <summary>
+		/// Creates a task from an exception to use on NET451 scenarios
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="ex"></param>
+		/// <returns></returns>
+		private static Task<T> FromExAsync<T>(Exception ex)
+		{
+			var task = new Task<T>(() => { throw ex; });
+			task.RunSynchronously();
+			return task;
 		}
 	}
 }
