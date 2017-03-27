@@ -4,12 +4,16 @@
     <TargetFrameworks>netstandard1.6;net451</TargetFrameworks>
     <Authors>ealsur</Authors>
     <Company />
-    <Product>Azure DocumentDb concurrency extensions</Product>
+    <Product>Azure DocumentDB concurrency extensions</Product>
     <Copyright>2017</Copyright>
     <PackageLicenseUrl>https://github.com/ealsur/concurrentdocdb/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/ealsur/concurrentdocdb</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ealsur/concurrentdocdb</RepositoryUrl>
-    <PackageTags />
+    <PackageTags>azure documentdb concurrency</PackageTags>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PackageId>DocumentDB.Concurrency</PackageId>
+    <Description>.NET extensions to support concurrent-aware operations on Azure DocumentDB that will let you detect and act easily on concurrency faults.</Description>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.6'">
 		<PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="1.1.2" />
